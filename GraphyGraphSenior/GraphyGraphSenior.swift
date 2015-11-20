@@ -12,14 +12,6 @@ import Foundation
 //TODO: move each class to it's own file
 
 
-
-public class EdgeSetFactory<V: Hashable, E: Hashable> {
-    func createEdgeSet(v: V) -> Set<E> {
-        abstractClassAssert()
-        return Set<E>()
-    }
-}
-
 public class IntrusiveEdge<V: Hashable>: Hashable {
     var source: V?
     var target: V?
