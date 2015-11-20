@@ -12,27 +12,6 @@ import Foundation
 //TODO: move each class to it's own file
 
 
-
-
-public func ==<V: Hashable>(lhs: DefaultEdge<V>, rhs: DefaultEdge<V>) -> Bool {
-    return lhs.source == rhs.source && lhs.target == rhs.target
-}
-
-public class DefaultEdge<V: Hashable>: IntrusiveEdge<V>, Initialisable {
-    func getSource() -> V? {
-        return source
-    }
-    func getTarget() -> V? {
-        return target
-    }
-    
-    public override required init() {
-        
-    }
-}
-
-
-
 class Specifics<V: Hashable, E: Hashable> {
     
     func addVertex(vertex: V) { abstractClassAssert() }
@@ -439,15 +418,5 @@ class DirectedEdgeContainer<VV: Hashable, EE: Hashable> {
 public class ClassBasedEdgeFactory<V: Hashable, E: Hashable where E: Initialisable>: EdgeFactory<V, E> {
     override func createEdge(sourceVertex: V, targetVertex: V) -> E? {
         return E()
-    }
-}
-
-public class SimpleGraph<V: Hashable, E: Hashable where E: Initialisable>: AbstractBaseGraph<V, E> {
-    init(edgeFactory: EdgeFactory<V, E>) {
-        super.init(edgeFactory: edgeFactory, allowMultipleEdges: false, allowLoops: false)
-    }
-    
-    convenience override init() {
-        self.init(edgeFactory: ClassBasedEdgeFactory<V,E>())
     }
 }
