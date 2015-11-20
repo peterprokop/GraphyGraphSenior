@@ -9,14 +9,14 @@
 import Foundation
 
 public class EdgeTraversalEvent<V: Hashable, E: Hashable>: EventObject {
-    private var edge: E
+    var edge: E?
     
-    init(eventSource: AnyObject, edge: E) {
+    init(eventSource: AnyObject, edge: E?) {
         self.edge = edge
         super.init(source: eventSource)        
     }
     
-    public func getEdge() -> E {
+    public func getEdge() -> E? {
         return edge
     }
 }

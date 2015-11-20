@@ -8,49 +8,53 @@
 
 import Foundation
 
-let g = SimpleGraph<String, DefaultEdge<String>>()
-
-let v1 = "v1"
-let v2 = "v2"
-let v3 = "v3"
-let v4 = "v4"
-
-// add the vertices
-g.addVertex(v1);
-g.addVertex(v2);
-g.addVertex(v3);
-g.addVertex(v4);
-
-// add edges to create a circuit
-g.addEdge(v1, targetVertex: v2);
-print(g.edgeSet())
-g.addEdge(v2, targetVertex: v3);
-print(g.edgeSet())
-g.addEdge(v3, targetVertex: v4);
-print(g.edgeSet())
-g.addEdge(v4, targetVertex: v1);
-print(g.edgeSet())
-
 // Have some troubles with generics in test module, so there are some tests in "main"
 
-/*
+
+func simpleGraphTest() {
+    let g = SimpleGraph<String, DefaultEdge<String>>()
+
+    let v1 = "v1"
+    let v2 = "v2"
+    let v3 = "v3"
+    let v4 = "v4"
+
+    // add the vertices
+    g.addVertex(v1);
+    g.addVertex(v2);
+    g.addVertex(v3);
+    g.addVertex(v4);
+
+    // add edges to create a circuit
+    g.addEdge(v1, targetVertex: v2);
+    print(g.edgeSet())
+    g.addEdge(v2, targetVertex: v3);
+    print(g.edgeSet())
+    g.addEdge(v3, targetVertex: v4);
+    print(g.edgeSet())
+    g.addEdge(v4, targetVertex: v1);
+    print(g.edgeSet())
+    
+    /*
     Should be in AsUndirectedGraphTest
-*/
-typealias EdgeTA = DefaultEdge<String>
-private var loop: EdgeTA?
-private var directed = DefaultDirectedGraph<String, EdgeTA>()
-//var undirected: UndirectedGraph<String, DefaultEdge<String>>?
+    */
+    typealias EdgeTA = DefaultEdge<String>
+    
+    var loop: EdgeTA?
+    let directed = DefaultDirectedGraph<String, EdgeTA>()    
+    
+    directed.addVertex(v1);
+    directed.addVertex(v2);
+    directed.addVertex(v3);
+    directed.addVertex(v4);
+    directed.addEdge(v1, targetVertex: v2);
+    directed.addEdge(v2, targetVertex: v3);
+    directed.addEdge(v2, targetVertex: v4);
+    loop = directed.addEdge(v4, targetVertex: v4);
+}
 
+simpleGraphTest()
 
-
-directed.addVertex(v1);
-directed.addVertex(v2);
-directed.addVertex(v3);
-directed.addVertex(v4);
-directed.addEdge(v1, targetVertex: v2);
-directed.addEdge(v2, targetVertex: v3);
-directed.addEdge(v2, targetVertex: v4);
-loop = directed.addEdge(v4, targetVertex: v4);
 
 
 /*

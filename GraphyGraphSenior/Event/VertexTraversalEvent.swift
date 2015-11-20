@@ -9,14 +9,14 @@
 import Foundation
 
 public class VertexTraversalEvent<V: Hashable>: EventObject {
-    private var vertex: V
+    var vertex: V?
     
-    init(eventSource: AnyObject, vertex: V) {
+    init(eventSource: AnyObject, vertex: V?) {
         self.vertex = vertex
         super.init(source: eventSource)
     }
     
-    func getVertex() -> V {
+    func getVertex() -> V? {
         return vertex
     }
 }

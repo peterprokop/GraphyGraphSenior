@@ -37,13 +37,13 @@ public protocol Graph {
 }
 
 public protocol DirectedGraph: Graph {
-    typealias V: Hashable
-    typealias E: Hashable
+    typealias VV: Hashable
+    typealias EE: Hashable
     
-    func inDegreeOf(vertex: V) -> Int
-    func incomingEdgesOf(vertex: V) -> Set<E>
-    func outDegreeOf(vertex: V) -> Int
-    func outgoingEdgesOf(vertex: V) -> Set<E>
+    func inDegreeOf(vertex: VV) -> Int
+    func incomingEdgesOf(vertex: VV) -> Set<EE>
+    func outDegreeOf(vertex: VV) -> Int
+    func outgoingEdgesOf(vertex: VV) -> Set<EE>
 }
 
 public protocol UndirectedGraph: Graph {

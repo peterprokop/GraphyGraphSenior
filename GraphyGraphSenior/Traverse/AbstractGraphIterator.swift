@@ -13,7 +13,7 @@ public class AbstractGraphIterator<V: Hashable, E: Hashable>: GraphIterator<V, E
     private var traversalListeners = Array<TraversalListener<V, E>>()
     private var crossComponentTraversal = false
     private var reuseEvents = false
-    private var nListeners = 0 // TODO: remove
+    var nListeners = 0 // TODO: remove
     
     public func setCrossComponentTraversal(crossComponentTraversal: Bool) {
         self.crossComponentTraversal = crossComponentTraversal
@@ -46,31 +46,31 @@ public class AbstractGraphIterator<V: Hashable, E: Hashable>: GraphIterator<V, E
         nListeners = traversalListeners.count
     }
     
-    private func fireConnectedComponentFinished(e: ConnectedComponentTraversalEvent) {
+    func fireConnectedComponentFinished(e: ConnectedComponentTraversalEvent) {
         for l in traversalListeners {
             l.connectedComponentFinished(e)
         }
     }
     
-    private func fireConnectedComponentStarted(e: ConnectedComponentTraversalEvent) {
+    func fireConnectedComponentStarted(e: ConnectedComponentTraversalEvent) {
         for l in traversalListeners {
             l.connectedComponentStarted(e)
         }
     }
     
-    private func fireEdgeTraversed(e: EdgeTraversalEvent<V, E>) {
+    func fireEdgeTraversed(e: EdgeTraversalEvent<V, E>) {
         for l in traversalListeners {
             l.edgeTraversed(e)
         }
     }
     
-    private func fireVertexTraversed(e: VertexTraversalEvent<V>) {
+    func fireVertexTraversed(e: VertexTraversalEvent<V>) {
         for l in traversalListeners {
             l.vertexTraversed(e)
         }
     }
     
-    private func fireVertexFinished(e: VertexTraversalEvent<V>) {
+    func fireVertexFinished(e: VertexTraversalEvent<V>) {
         for l in traversalListeners {
             l.vertexFinished(e)
         }

@@ -29,6 +29,7 @@
 		0D4B1D771BFF22E300631D05 /* SimpleGraph.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D4B1D761BFF22E300631D05 /* SimpleGraph.swift */; };
 		0D4B1D791BFF232D00631D05 /* ClassBasedEdgeFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D4B1D781BFF232D00631D05 /* ClassBasedEdgeFactory.swift */; };
 		0D4B1D7B1BFF248600631D05 /* AbstractBaseGraph.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D4B1D7A1BFF248600631D05 /* AbstractBaseGraph.swift */; };
+		0D4B1D7D1BFF7DFD00631D05 /* Graphs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D4B1D7C1BFF7DFD00631D05 /* Graphs.swift */; };
 		0D4F71351BF9182500385B7D /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D4F71341BF9182500385B7D /* main.swift */; };
 /* End PBXBuildFile section */
 
@@ -69,6 +70,7 @@
 		0D4B1D761BFF22E300631D05 /* SimpleGraph.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimpleGraph.swift; sourceTree = "<group>"; };
 		0D4B1D781BFF232D00631D05 /* ClassBasedEdgeFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClassBasedEdgeFactory.swift; sourceTree = "<group>"; };
 		0D4B1D7A1BFF248600631D05 /* AbstractBaseGraph.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AbstractBaseGraph.swift; sourceTree = "<group>"; };
+		0D4B1D7C1BFF7DFD00631D05 /* Graphs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Graphs.swift; sourceTree = "<group>"; };
 		0D4F71311BF9182500385B7D /* GraphyGraphSeniorExample */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = GraphyGraphSeniorExample; sourceTree = BUILT_PRODUCTS_DIR; };
 		0D4F71341BF9182500385B7D /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -104,6 +106,7 @@
 		0D4B1D4B1BFF1C7800631D05 /* GraphyGraphSenior */ = {
 			isa = PBXGroup;
 			children = (
+				0D4B1D7C1BFF7DFD00631D05 /* Graphs.swift */,
 				0D4B1D6D1BFF21AA00631D05 /* Graph */,
 				0D4B1D6B1BFF212300631D05 /* EdgeFactory.swift */,
 				0D4B1D4C1BFF1C7800631D05 /* Algorithms */,
@@ -304,6 +307,7 @@
 				0D4F71351BF9182500385B7D /* main.swift in Sources */,
 				0D4B1D671BFF1C7800631D05 /* AbstractGraphIterator.swift in Sources */,
 				0D4B1D6A1BFF1C7800631D05 /* GraphIterator.swift in Sources */,
+				0D4B1D7D1BFF7DFD00631D05 /* Graphs.swift in Sources */,
 				0D4B1D641BFF1C7800631D05 /* VertexTraversalEvent.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

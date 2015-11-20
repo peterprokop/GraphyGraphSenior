@@ -8,7 +8,7 @@
 
 import Foundation
 
-private class ProbeIterator<V: Hashable, E: Hashable, G: Graph>: DepthFirstIterator<V, E, G>
+private class ProbeIterator<V: Hashable, E: Hashable, G: Graph where G.V == V, G.E == E>: DepthFirstIterator<V, E, G>
 {
     private var path: Array<V> = Array<V>()
     private var cycleSet: Set<V>?
@@ -21,6 +21,10 @@ private class ProbeIterator<V: Hashable, E: Hashable, G: Graph>: DepthFirstItera
         self.cycleSet = cycleSet
     }
     
+    override func encounterVertexAgain(vertex: V, edge: E) {
+        
+    }
+    
     // TODO: finish implementation
 }
 
@@ -28,7 +32,7 @@ public enum CycleDetectorExceptions: ErrorType {
     case CycleDetectedException
 }
 
-public class CycleDetector<V: Hashable, E: Hashable, DG: DirectedGraph> {
+public class CycleDetector<V: Hashable, E: Hashable, DG: DirectedGraph where DG.V == V, DG.E == E> {
 
     var graph: DG
     
