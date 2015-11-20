@@ -24,7 +24,8 @@
 		0D4B1D691BFF1C7800631D05 /* DepthFirstIterator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D4B1D5B1BFF1C7800631D05 /* DepthFirstIterator.swift */; };
 		0D4B1D6A1BFF1C7800631D05 /* GraphIterator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D4B1D5C1BFF1C7800631D05 /* GraphIterator.swift */; };
 		0D4B1D6C1BFF212300631D05 /* EdgeFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D4B1D6B1BFF212300631D05 /* EdgeFactory.swift */; };
-		0D4B1D6F1BFF21B500631D05 /* EdgeSetFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D4B1D6E1BFF21B500631D05 /* EdgeSetFactory.swift */; };
+		0D4B1D721BFF21F900631D05 /* EdgeSetFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D4B1D6E1BFF21B500631D05 /* EdgeSetFactory.swift */; };
+		0D4B1D731BFF21FC00631D05 /* IntrusiveEdge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D4B1D701BFF21F500631D05 /* IntrusiveEdge.swift */; };
 		0D4F71351BF9182500385B7D /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D4F71341BF9182500385B7D /* main.swift */; };
 /* End PBXBuildFile section */
 
@@ -61,6 +62,7 @@
 		0D4B1D5C1BFF1C7800631D05 /* GraphIterator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GraphIterator.swift; sourceTree = "<group>"; };
 		0D4B1D6B1BFF212300631D05 /* EdgeFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EdgeFactory.swift; sourceTree = "<group>"; };
 		0D4B1D6E1BFF21B500631D05 /* EdgeSetFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EdgeSetFactory.swift; sourceTree = "<group>"; };
+		0D4B1D701BFF21F500631D05 /* IntrusiveEdge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntrusiveEdge.swift; sourceTree = "<group>"; };
 		0D4F71311BF9182500385B7D /* GraphyGraphSeniorExample */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = GraphyGraphSeniorExample; sourceTree = BUILT_PRODUCTS_DIR; };
 		0D4F71341BF9182500385B7D /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -144,6 +146,7 @@
 			isa = PBXGroup;
 			children = (
 				0D4B1D6E1BFF21B500631D05 /* EdgeSetFactory.swift */,
+				0D4B1D701BFF21F500631D05 /* IntrusiveEdge.swift */,
 			);
 			path = Graph;
 			sourceTree = "<group>";
@@ -265,7 +268,6 @@
 			files = (
 				0D1939241BFBBED400D56C5E /* GraphyGraphTests.swift in Sources */,
 				0D19392A1BFBBF0A00D56C5E /* AsUndirectedGraphTest.swift in Sources */,
-				0D4B1D6F1BFF21B500631D05 /* EdgeSetFactory.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -279,8 +281,10 @@
 				0D4B1D621BFF1C7800631D05 /* EventObject.swift in Sources */,
 				0D4B1D5D1BFF1C7800631D05 /* CycleDetector.swift in Sources */,
 				0D4B1D651BFF1C7800631D05 /* Graph.swift in Sources */,
+				0D4B1D731BFF21FC00631D05 /* IntrusiveEdge.swift in Sources */,
 				0D4B1D691BFF1C7800631D05 /* DepthFirstIterator.swift in Sources */,
 				0D4B1D631BFF1C7800631D05 /* TraversalListener.swift in Sources */,
+				0D4B1D721BFF21F900631D05 /* EdgeSetFactory.swift in Sources */,
 				0D4B1D601BFF1C7800631D05 /* ConnectedComponentTraversalEvent.swift in Sources */,
 				0D4B1D6C1BFF212300631D05 /* EdgeFactory.swift in Sources */,
 				0D4B1D5E1BFF1C7800631D05 /* Common.swift in Sources */,

@@ -12,16 +12,7 @@ import Foundation
 //TODO: move each class to it's own file
 
 
-public class IntrusiveEdge<V: Hashable>: Hashable {
-    var source: V?
-    var target: V?
-    
-    public var hashValue: Int { get { return 0 } }
-}
 
-public func ==<V: Hashable>(lhs: IntrusiveEdge<V>, rhs: IntrusiveEdge<V>) -> Bool {
-    return lhs.source == rhs.source && lhs.target == rhs.target
-}
 
 public func ==<V: Hashable>(lhs: DefaultEdge<V>, rhs: DefaultEdge<V>) -> Bool {
     return lhs.source == rhs.source && lhs.target == rhs.target
