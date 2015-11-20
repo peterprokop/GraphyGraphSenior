@@ -28,6 +28,7 @@
 		0D4B1D731BFF21FC00631D05 /* IntrusiveEdge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D4B1D701BFF21F500631D05 /* IntrusiveEdge.swift */; };
 		0D4B1D751BFF226100631D05 /* DefaultEdge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D4B1D741BFF226100631D05 /* DefaultEdge.swift */; };
 		0D4B1D771BFF22E300631D05 /* SimpleGraph.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D4B1D761BFF22E300631D05 /* SimpleGraph.swift */; };
+		0D4B1D791BFF232D00631D05 /* ClassBasedEdgeFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D4B1D781BFF232D00631D05 /* ClassBasedEdgeFactory.swift */; };
 		0D4F71351BF9182500385B7D /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D4F71341BF9182500385B7D /* main.swift */; };
 /* End PBXBuildFile section */
 
@@ -67,6 +68,7 @@
 		0D4B1D701BFF21F500631D05 /* IntrusiveEdge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntrusiveEdge.swift; sourceTree = "<group>"; };
 		0D4B1D741BFF226100631D05 /* DefaultEdge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultEdge.swift; sourceTree = "<group>"; };
 		0D4B1D761BFF22E300631D05 /* SimpleGraph.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimpleGraph.swift; sourceTree = "<group>"; };
+		0D4B1D781BFF232D00631D05 /* ClassBasedEdgeFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClassBasedEdgeFactory.swift; sourceTree = "<group>"; };
 		0D4F71311BF9182500385B7D /* GraphyGraphSeniorExample */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = GraphyGraphSeniorExample; sourceTree = BUILT_PRODUCTS_DIR; };
 		0D4F71341BF9182500385B7D /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -153,6 +155,7 @@
 				0D4B1D701BFF21F500631D05 /* IntrusiveEdge.swift */,
 				0D4B1D741BFF226100631D05 /* DefaultEdge.swift */,
 				0D4B1D761BFF22E300631D05 /* SimpleGraph.swift */,
+				0D4B1D781BFF232D00631D05 /* ClassBasedEdgeFactory.swift */,
 			);
 			path = Graph;
 			sourceTree = "<group>";
@@ -283,6 +286,7 @@
 			files = (
 				0D4B1D611BFF1C7800631D05 /* EdgeTraversalEvent.swift in Sources */,
 				0D4B1D5F1BFF1C7800631D05 /* DefaultDirectedGraph.swift in Sources */,
+				0D4B1D791BFF232D00631D05 /* ClassBasedEdgeFactory.swift in Sources */,
 				0D4B1D661BFF1C7800631D05 /* GraphyGraphSenior.swift in Sources */,
 				0D4B1D621BFF1C7800631D05 /* EventObject.swift in Sources */,
 				0D4B1D5D1BFF1C7800631D05 /* CycleDetector.swift in Sources */,

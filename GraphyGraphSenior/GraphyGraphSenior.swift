@@ -415,8 +415,3 @@ class DirectedEdgeContainer<VV: Hashable, EE: Hashable> {
     private var unmodifiableOutgoing: Set<EE>?
 }
 
-public class ClassBasedEdgeFactory<V: Hashable, E: Hashable where E: Initialisable>: EdgeFactory<V, E> {
-    override func createEdge(sourceVertex: V, targetVertex: V) -> E? {
-        return E()
-    }
-}
