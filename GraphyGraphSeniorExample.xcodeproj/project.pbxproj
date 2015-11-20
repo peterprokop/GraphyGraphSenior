@@ -23,6 +23,7 @@
 		0D4B1D681BFF1C7800631D05 /* CrossComponentIterator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D4B1D5A1BFF1C7800631D05 /* CrossComponentIterator.swift */; };
 		0D4B1D691BFF1C7800631D05 /* DepthFirstIterator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D4B1D5B1BFF1C7800631D05 /* DepthFirstIterator.swift */; };
 		0D4B1D6A1BFF1C7800631D05 /* GraphIterator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D4B1D5C1BFF1C7800631D05 /* GraphIterator.swift */; };
+		0D4B1D6C1BFF212300631D05 /* EdgeFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D4B1D6B1BFF212300631D05 /* EdgeFactory.swift */; };
 		0D4F71351BF9182500385B7D /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D4F71341BF9182500385B7D /* main.swift */; };
 /* End PBXBuildFile section */
 
@@ -57,6 +58,7 @@
 		0D4B1D5A1BFF1C7800631D05 /* CrossComponentIterator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CrossComponentIterator.swift; sourceTree = "<group>"; };
 		0D4B1D5B1BFF1C7800631D05 /* DepthFirstIterator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DepthFirstIterator.swift; sourceTree = "<group>"; };
 		0D4B1D5C1BFF1C7800631D05 /* GraphIterator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GraphIterator.swift; sourceTree = "<group>"; };
+		0D4B1D6B1BFF212300631D05 /* EdgeFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EdgeFactory.swift; sourceTree = "<group>"; };
 		0D4F71311BF9182500385B7D /* GraphyGraphSeniorExample */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = GraphyGraphSeniorExample; sourceTree = BUILT_PRODUCTS_DIR; };
 		0D4F71341BF9182500385B7D /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -92,6 +94,7 @@
 		0D4B1D4B1BFF1C7800631D05 /* GraphyGraphSenior */ = {
 			isa = PBXGroup;
 			children = (
+				0D4B1D6B1BFF212300631D05 /* EdgeFactory.swift */,
 				0D4B1D4C1BFF1C7800631D05 /* Algorithms */,
 				0D4B1D4E1BFF1C7800631D05 /* Common.swift */,
 				0D4B1D4F1BFF1C7800631D05 /* DefaultDirectedGraph.swift */,
@@ -267,6 +270,7 @@
 				0D4B1D691BFF1C7800631D05 /* DepthFirstIterator.swift in Sources */,
 				0D4B1D631BFF1C7800631D05 /* TraversalListener.swift in Sources */,
 				0D4B1D601BFF1C7800631D05 /* ConnectedComponentTraversalEvent.swift in Sources */,
+				0D4B1D6C1BFF212300631D05 /* EdgeFactory.swift in Sources */,
 				0D4B1D5E1BFF1C7800631D05 /* Common.swift in Sources */,
 				0D4B1D681BFF1C7800631D05 /* CrossComponentIterator.swift in Sources */,
 				0D4F71351BF9182500385B7D /* main.swift in Sources */,

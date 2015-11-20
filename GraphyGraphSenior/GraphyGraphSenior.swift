@@ -11,16 +11,7 @@ import Foundation
 
 //TODO: move each class to it's own file
 
-/**
- Was interface in original.
- Acts as abstract class.
-*/
-public class EdgeFactory<V: Hashable, E: Hashable> {
-    func createEdge(sourceVertex: V, targetVertex: V) -> E? {
-        abstractClassAssert()
-        return nil
-    }
-}
+
 
 public class EdgeSetFactory<V: Hashable, E: Hashable> {
     func createEdgeSet(v: V) -> Set<E> {
