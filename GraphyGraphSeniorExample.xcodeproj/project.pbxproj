@@ -30,7 +30,12 @@
 		0D4B1D791BFF232D00631D05 /* ClassBasedEdgeFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D4B1D781BFF232D00631D05 /* ClassBasedEdgeFactory.swift */; };
 		0D4B1D7B1BFF248600631D05 /* AbstractBaseGraph.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D4B1D7A1BFF248600631D05 /* AbstractBaseGraph.swift */; };
 		0D4B1D7D1BFF7DFD00631D05 /* Graphs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D4B1D7C1BFF7DFD00631D05 /* Graphs.swift */; };
+		0D4B1D7F1BFF82DF00631D05 /* CycleDetectorTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D4B1D7E1BFF82DF00631D05 /* CycleDetectorTest.swift */; };
 		0D4F71351BF9182500385B7D /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D4F71341BF9182500385B7D /* main.swift */; };
+		0DC58E7D1C004E530072BB55 /* Subgraph.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D4B1D831BFF886D00631D05 /* Subgraph.swift */; };
+		0DC58E7E1C004E9E0072BB55 /* StrongConnectivityAlgorithm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D4B1D811BFF870C00631D05 /* StrongConnectivityAlgorithm.swift */; };
+		0DC58E801C0050210072BB55 /* DirectedSubgraph.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DC58E7F1C0050210072BB55 /* DirectedSubgraph.swift */; };
+		0DC58E821C0053290072BB55 /* CycleDetectorTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DC58E811C0053290072BB55 /* CycleDetectorTest.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -71,8 +76,13 @@
 		0D4B1D781BFF232D00631D05 /* ClassBasedEdgeFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClassBasedEdgeFactory.swift; sourceTree = "<group>"; };
 		0D4B1D7A1BFF248600631D05 /* AbstractBaseGraph.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AbstractBaseGraph.swift; sourceTree = "<group>"; };
 		0D4B1D7C1BFF7DFD00631D05 /* Graphs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Graphs.swift; sourceTree = "<group>"; };
+		0D4B1D7E1BFF82DF00631D05 /* CycleDetectorTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CycleDetectorTest.swift; sourceTree = "<group>"; };
+		0D4B1D811BFF870C00631D05 /* StrongConnectivityAlgorithm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StrongConnectivityAlgorithm.swift; sourceTree = "<group>"; };
+		0D4B1D831BFF886D00631D05 /* Subgraph.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Subgraph.swift; sourceTree = "<group>"; };
 		0D4F71311BF9182500385B7D /* GraphyGraphSeniorExample */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = GraphyGraphSeniorExample; sourceTree = BUILT_PRODUCTS_DIR; };
 		0D4F71341BF9182500385B7D /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		0DC58E7F1C0050210072BB55 /* DirectedSubgraph.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DirectedSubgraph.swift; sourceTree = "<group>"; };
+		0DC58E811C0053290072BB55 /* CycleDetectorTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CycleDetectorTest.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,6 +109,7 @@
 				0D1939291BFBBF0A00D56C5E /* AsUndirectedGraphTest.swift */,
 				0D1939231BFBBED400D56C5E /* GraphyGraphTests.swift */,
 				0D1939251BFBBED400D56C5E /* Info.plist */,
+				0D4B1D7E1BFF82DF00631D05 /* CycleDetectorTest.swift */,
 			);
 			path = GraphyGraphTests;
 			sourceTree = "<group>";
@@ -106,6 +117,7 @@
 		0D4B1D4B1BFF1C7800631D05 /* GraphyGraphSenior */ = {
 			isa = PBXGroup;
 			children = (
+				0D4B1D801BFF86EB00631D05 /* Interfaces */,
 				0D4B1D7C1BFF7DFD00631D05 /* Graphs.swift */,
 				0D4B1D6D1BFF21AA00631D05 /* Graph */,
 				0D4B1D6B1BFF212300631D05 /* EdgeFactory.swift */,
@@ -159,8 +171,18 @@
 				0D4B1D741BFF226100631D05 /* DefaultEdge.swift */,
 				0D4B1D761BFF22E300631D05 /* SimpleGraph.swift */,
 				0D4B1D781BFF232D00631D05 /* ClassBasedEdgeFactory.swift */,
+				0D4B1D831BFF886D00631D05 /* Subgraph.swift */,
+				0DC58E7F1C0050210072BB55 /* DirectedSubgraph.swift */,
 			);
 			path = Graph;
+			sourceTree = "<group>";
+		};
+		0D4B1D801BFF86EB00631D05 /* Interfaces */ = {
+			isa = PBXGroup;
+			children = (
+				0D4B1D811BFF870C00631D05 /* StrongConnectivityAlgorithm.swift */,
+			);
+			path = Interfaces;
 			sourceTree = "<group>";
 		};
 		0D4F71281BF9182500385B7D = {
@@ -186,6 +208,7 @@
 			isa = PBXGroup;
 			children = (
 				0D4F71341BF9182500385B7D /* main.swift */,
+				0DC58E811C0053290072BB55 /* CycleDetectorTest.swift */,
 			);
 			path = GraphyGraphExample;
 			sourceTree = "<group>";
@@ -278,6 +301,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0D4B1D7F1BFF82DF00631D05 /* CycleDetectorTest.swift in Sources */,
 				0D1939241BFBBED400D56C5E /* GraphyGraphTests.swift in Sources */,
 				0D19392A1BFBBF0A00D56C5E /* AsUndirectedGraphTest.swift in Sources */,
 			);
@@ -293,10 +317,13 @@
 				0D4B1D7B1BFF248600631D05 /* AbstractBaseGraph.swift in Sources */,
 				0D4B1D621BFF1C7800631D05 /* EventObject.swift in Sources */,
 				0D4B1D5D1BFF1C7800631D05 /* CycleDetector.swift in Sources */,
+				0DC58E821C0053290072BB55 /* CycleDetectorTest.swift in Sources */,
 				0D4B1D651BFF1C7800631D05 /* Graph.swift in Sources */,
 				0D4B1D731BFF21FC00631D05 /* IntrusiveEdge.swift in Sources */,
+				0DC58E801C0050210072BB55 /* DirectedSubgraph.swift in Sources */,
 				0D4B1D691BFF1C7800631D05 /* DepthFirstIterator.swift in Sources */,
 				0D4B1D631BFF1C7800631D05 /* TraversalListener.swift in Sources */,
+				0DC58E7D1C004E530072BB55 /* Subgraph.swift in Sources */,
 				0D4B1D721BFF21F900631D05 /* EdgeSetFactory.swift in Sources */,
 				0D4B1D601BFF1C7800631D05 /* ConnectedComponentTraversalEvent.swift in Sources */,
 				0D4B1D6C1BFF212300631D05 /* EdgeFactory.swift in Sources */,
@@ -307,6 +334,7 @@
 				0D4F71351BF9182500385B7D /* main.swift in Sources */,
 				0D4B1D671BFF1C7800631D05 /* AbstractGraphIterator.swift in Sources */,
 				0D4B1D6A1BFF1C7800631D05 /* GraphIterator.swift in Sources */,
+				0DC58E7E1C004E9E0072BB55 /* StrongConnectivityAlgorithm.swift in Sources */,
 				0D4B1D7D1BFF7DFD00631D05 /* Graphs.swift in Sources */,
 				0D4B1D641BFF1C7800631D05 /* VertexTraversalEvent.swift in Sources */,
 			);

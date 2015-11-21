@@ -8,20 +8,20 @@
 
 import Foundation
 
-class DefaultDirectedGraph<V: Hashable, E: Hashable where E: Initialisable>: AbstractBaseGraph<V, E>, DirectedGraph {
-    func inDegreeOf(vertex: V) -> Int {
+public class DefaultDirectedGraph<V: Hashable, E: Hashable where E: Initialisable>: AbstractBaseGraph<V, E>, DirectedGraph {
+    public func inDegreeOf(vertex: V) -> Int {
         return specifics!.inDegreeOf(vertex)
     }
     
-    func incomingEdgesOf(vertex: V) -> Set<E> {
+    public func incomingEdgesOf(vertex: V) -> Set<E> {
         return specifics!.incomingEdgesOf(vertex)
     }
     
-    func outDegreeOf(vertex: V) -> Int {
+    public func outDegreeOf(vertex: V) -> Int {
         return specifics!.outDegreeOf(vertex)
     }
     
-    func outgoingEdgesOf(vertex: V) -> Set<E> {
+    public func outgoingEdgesOf(vertex: V) -> Set<E> {
         return specifics!.outgoingEdgesOf(vertex)
     }
     

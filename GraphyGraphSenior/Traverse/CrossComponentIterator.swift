@@ -71,7 +71,7 @@ class CrossComponentIteratorSpecifics<V: Hashable, E: Hashable> {
 /**
  * An implementation of {@link Specifics} for a directed graph.
  */
-private class DirectedSpecifics<V: Hashable, E: Hashable, DG: DirectedGraph where DG.VV == V, DG.EE == E>
+private class DirectedSpecifics<V: Hashable, E: Hashable, DG: DirectedGraph where DG.V == V, DG.E == E>
     : CrossComponentIteratorSpecifics<V, E>
 {
     private var graph: DG
@@ -376,7 +376,7 @@ public class CrossComponentIterator<V: Hashable, E: Hashable, D, G: Graph where 
         }
     }
     
-    func createGraphSpecifics<CG: DirectedGraph where CG.VV == V, CG.EE == E>(graph: CG)
+    func createGraphSpecifics<CG: DirectedGraph where CG.V == V, CG.E == E>(graph: CG)
         -> CrossComponentIteratorSpecifics<V, E>
     {
         return DirectedSpecifics<V, E, CG>(graph: graph)

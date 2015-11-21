@@ -21,7 +21,7 @@ private class ProbeIterator<V: Hashable, E: Hashable, G: Graph where G.V == V, G
         self.cycleSet = cycleSet
     }
     
-    override func encounterVertexAgain(vertex: V, edge: E) {
+    override func encounterVertexAgain(vertex: V, edge: E?) {
         
     }
     
@@ -36,7 +36,7 @@ public class CycleDetector<V: Hashable, E: Hashable, DG: DirectedGraph where DG.
 
     var graph: DG
     
-    init(graph: DG) {
+    public init(graph: DG) {
         self.graph = graph
     }
     
@@ -64,6 +64,45 @@ public class CycleDetector<V: Hashable, E: Hashable, DG: DirectedGraph where DG.
         return false
     }
     
+    /**
+      Finds the vertex set for the subgraph of all cycles.
+    
+      - return set of all vertices which participate in at least one cycle in
+      this graph
+     */
+    /*
+    public func findCycles() -> Set<V>
+    {
+        // ProbeIterator can't be used to handle this case,
+        // so use StrongConnectivityAlgorithm instead.
+        StrongConnectivityAlgorithm<V, E> inspector =
+            new KosarajuStrongConnectivityInspector<V, E>(graph);
+        List<Set<V>> components = inspector.stronglyConnectedSets();
+
+        // A vertex participates in a cycle if either of the following is
+        // true:  (a) it is in a component whose size is greater than 1
+        // or (b) it is a self-loop
+
+        Set<V> set = new HashSet<V>();
+        for component in components {
+            if (component.size() > 1) {
+                // cycle
+                set.addAll(component);
+            } else {
+                V v = component.iterator().next();
+                if (graph.containsEdge(v, v)) {
+                    // self-loop
+                    set.add(v);
+                }
+            }
+        }
+
+        return set;
+    }
+    */
+     
+    // TODO: finish
+    
     private func execute(s: Set<V>?, vertex: V?) throws {
         let iter = ProbeIterator<V, E, DG>(graph: graph, cycleSet: s, startVertex: vertex)
         
@@ -71,4 +110,6 @@ public class CycleDetector<V: Hashable, E: Hashable, DG: DirectedGraph where DG.
             iter.next();
         }
     }
+    
+    // TODO: finish
 }

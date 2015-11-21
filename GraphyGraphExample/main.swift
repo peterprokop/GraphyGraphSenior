@@ -111,3 +111,5 @@ func DefaultDirectedGraphTest() {
     testVertexOrderDeterminism()
 }
 DefaultDirectedGraphTest()
+
+CycleDetectorTest()

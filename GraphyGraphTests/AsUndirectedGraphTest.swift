@@ -7,7 +7,8 @@
 //
 
 import XCTest
-@testable import GraphyGraphExample
+/*
+@testable import GraphyGraphSeniorExample
 
 class AsUndirectedGraphTest: XCTestCase {
     typealias EdgeTA = DefaultEdge<String>
@@ -43,3 +44,4 @@ class AsUndirectedGraphTest: XCTestCase {
     }
 
 }
+*/

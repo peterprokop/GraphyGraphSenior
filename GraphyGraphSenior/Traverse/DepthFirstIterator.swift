@@ -72,12 +72,12 @@ public class DepthFirstIterator<V: Hashable, E: Hashable, G: Graph where G.V == 
         }
     }
     
-    /*override*/ func encounterVertex(vertex: V, edge: E) {
+    override func encounterVertex(vertex: V, edge: E?) {
         putSeenData(vertex, data: CrossComponentIteratorVisitColor.WHITE)
         stack.append(.Some(vertex))
     }
     
-    /*override*/ func encounterVertexAgain(vertex: V, edge: E) {
+    override func encounterVertexAgain(vertex: V, edge: E?) {
         let color = getSeenData(vertex)
         if color != CrossComponentIteratorVisitColor.WHITE {
             // We've already visited this vertex; no need to mess with the
@@ -98,7 +98,33 @@ public class DepthFirstIterator<V: Hashable, E: Hashable, G: Graph where G.V == 
         stack.append(.Some(vertex))
     }
     
-    // TODO: finish implementation
+    /**
+     * @see CrossComponentIterator#provideNextVertex()
+     */
+    override func provideNextVertex() -> V {
+        var v: V
+        outerLoop: for (;;) {
+            let o = stack.removeLast()
+            
+            switch o {
+            case .Sentinel:
+                // This is a finish-time sentinel we previously pushed.
+                recordFinish()
+                // Now carry on with another pop until we find a non-sentinel
+            case .Some(let vv):
+                // Got a real vertex to start working on
+                v = vv
+                break outerLoop
+            }
+        }
+
+        // Push a sentinel for v onto the stack so that we'll know
+        // when we're done with it.
+        stack.append(.Some(v))
+        stack.append(.Sentinel)
+        putSeenData(v, data: CrossComponentIteratorVisitColor.GRAY)
+        return v
+    }
     
     func recordFinish() {
         let container = stack.removeLast()
