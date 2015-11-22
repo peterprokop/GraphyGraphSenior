@@ -117,15 +117,15 @@
 		0D4B1D4B1BFF1C7800631D05 /* GraphyGraphSenior */ = {
 			isa = PBXGroup;
 			children = (
-				0D4B1D801BFF86EB00631D05 /* Interfaces */,
 				0D4B1D7C1BFF7DFD00631D05 /* Graphs.swift */,
-				0D4B1D6D1BFF21AA00631D05 /* Graph */,
 				0D4B1D6B1BFF212300631D05 /* EdgeFactory.swift */,
-				0D4B1D4C1BFF1C7800631D05 /* Algorithms */,
 				0D4B1D4E1BFF1C7800631D05 /* Common.swift */,
 				0D4B1D4F1BFF1C7800631D05 /* DefaultDirectedGraph.swift */,
-				0D4B1D501BFF1C7800631D05 /* Event */,
 				0D4B1D561BFF1C7800631D05 /* Graph.swift */,
+				0D4B1D801BFF86EB00631D05 /* Interfaces */,
+				0D4B1D6D1BFF21AA00631D05 /* Graph */,
+				0D4B1D4C1BFF1C7800631D05 /* Algorithms */,
+				0D4B1D501BFF1C7800631D05 /* Event */,
 				0D4B1D581BFF1C7800631D05 /* Traverse */,
 			);
 			path = GraphyGraphSenior;

@@ -37,9 +37,6 @@ public protocol Graph {
 }
 
 public protocol DirectedGraph: Graph {
-    //typealias VV: Hashable
-    //typealias EE: Hashable
-    
     func inDegreeOf(vertex: V) -> Int
     func incomingEdgesOf(vertex: V) -> Set<E>
     func outDegreeOf(vertex: V) -> Int
