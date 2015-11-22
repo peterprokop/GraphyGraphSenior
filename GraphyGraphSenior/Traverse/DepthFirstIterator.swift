@@ -77,7 +77,7 @@ public class DepthFirstIterator<V: Hashable, E: Hashable, G: Graph where G.V == 
         stack.append(.Some(vertex))
     }
     
-    override func encounterVertexAgain(vertex: V, edge: E?) {
+    override func encounterVertexAgain(vertex: V, edge: E?) throws {
         let color = getSeenData(vertex)
         if color != CrossComponentIteratorVisitColor.WHITE {
             // We've already visited this vertex; no need to mess with the

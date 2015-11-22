@@ -21,8 +21,56 @@ private class ProbeIterator<V: Hashable, E: Hashable, G: Graph where G.V == V, G
         self.cycleSet = cycleSet
     }
     
-    override func encounterVertexAgain(vertex: V, edge: E?) {
+    
+    override func encounterVertexAgain(vertex: V, edge: E?) throws {
+        print("encounterVertexAgain \(vertex)")
+        // TODO: check if this can be implemented without throwing
+        try super.encounterVertexAgain(vertex, edge: edge)
+        var i: Int
         
+        if root != nil {
+            // For rooted detection, the path must either
+            // double back to the root, or to a node of a cycle
+            // which has already been detected.
+            if vertex == root {
+                i = 0
+            } else if (cycleSet != nil) && cycleSet!.contains(vertex) {
+                i = 0
+            } else {
+                return
+            }
+        } else {
+            i = path.indexOf(vertex) ?? -1
+        }
+        
+        if i > -1 {
+            if cycleSet == nil {
+                // we're doing yes/no cycle detection
+                throw CycleDetectorExceptions.CycleDetectedException
+            } else {
+                for ; i < path.count; ++i {
+                    cycleSet?.insert(path[i])
+                }
+            }
+        }
+    }
+    
+    override func provideNextVertex() -> V {
+        let v = super.provideNextVertex()
+        print("provideNextVertex \(v)")
+        
+        // backtrack
+        for var i = path.count - 1; i >= 0; --i {
+            if graph.containsEdge(path[i], targetVertex: v) {
+                break
+            }
+            
+            path.removeAtIndex(i)
+        }
+        
+        path.append(v)
+        
+        return v
     }
     
     // TODO: finish implementation

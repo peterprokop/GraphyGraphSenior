@@ -163,7 +163,7 @@ public class CrossComponentIterator<V: Hashable, E: Hashable, D, G: Graph where 
     private var startVertex: V?
     private var specifics: CrossComponentIteratorSpecifics<V, E>?
 
-    private var graph: G
+    var graph: G
 
     /**
      * The connected component state
@@ -345,7 +345,7 @@ public class CrossComponentIterator<V: Hashable, E: Hashable, D, G: Graph where 
      * @param vertex the vertex re-encountered
      * @param edge the edge via which the vertex was re-encountered
      */
-    func encounterVertexAgain(vertex: V, edge: E?) {
+    func encounterVertexAgain(vertex: V, edge: E?) throws {
         abstractClassAssert()
     }
 
@@ -395,7 +395,7 @@ public class CrossComponentIterator<V: Hashable, E: Hashable, D, G: Graph where 
             let oppositeV = Graphs.getOppositeVertex(graph, edge: edge, vertex: vertex)
 
             if isSeenVertex(oppositeV) {
-                encounterVertexAgain(oppositeV, edge: edge);
+                try! encounterVertexAgain(oppositeV, edge: edge);
             } else {
                 encounterVertex(oppositeV, edge: edge);
             }
