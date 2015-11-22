@@ -18,7 +18,7 @@ class Specifics<V: Hashable, E: Hashable> {
     
     func getVertexSet() -> Set<V> { abstractClassAssert(); return Set<V>() }
     
-    func getAllEdges(sourceVertex: V, targetVertex: V) -> Set<E> { abstractClassAssert(); return Set<E>() }
+    func getAllEdges(sourceVertex: V, targetVertex: V) -> Set<E>? { abstractClassAssert(); return Set<E>() }
     
     func getEdge(sourceVertex: V, targetVertex: V) -> E? { abstractClassAssert(); return nil }
     
@@ -65,6 +65,254 @@ private class UndirectedEdgeContainer<V: Hashable, E: Hashable> {
     }
 }
 
+class DirectedEdgeContainer<V: Hashable, E: Hashable> {
+    var incoming: Set<E>
+    var outgoing: Set<E>
+    private var unmodifiableIncoming: Set<E>?
+    private var unmodifiableOutgoing: Set<E>?
+    
+    init(edgeSetFactory: EdgeSetFactory<V, E>, vertex: V) {
+        incoming = edgeSetFactory.createEdgeSet(vertex)
+        outgoing = edgeSetFactory.createEdgeSet(vertex)
+    }
+    
+    /**
+     * A lazy build of unmodifiable incoming edge set.
+     *
+     * @return
+     */
+    func getUnmodifiableIncomingEdges() -> Set<E>
+    {
+        if (unmodifiableIncoming == nil) {
+            unmodifiableIncoming = incoming
+        }
+
+        return unmodifiableIncoming!
+    }
+
+    /**
+     * A lazy build of unmodifiable outgoing edge set.
+     *
+     * @return
+     */
+    func getUnmodifiableOutgoingEdges() -> Set<E>
+    {
+        if (unmodifiableOutgoing == nil) {
+            unmodifiableOutgoing = outgoing
+        }
+
+        return unmodifiableOutgoing!
+    }
+
+    func addIncomingEdge(e: E)
+    {
+        incoming.insert(e)
+    }
+
+    func addOutgoingEdge(e: E)
+    {
+        outgoing.insert(e)
+    }
+
+    func removeIncomingEdge(e: E)
+    {
+        incoming.remove(e)
+    }
+
+    func removeOutgoingEdge(e: E)
+    {
+        outgoing.remove(e)
+    }
+}
+
+private class DirectedSpecifics<V: Hashable, E: Hashable>: Specifics<V, E> {
+    typealias VertexMapValueTA = DirectedEdgeContainer<V, E>?
+    typealias VertexMapDirectedTA = Dictionary<V, VertexMapValueTA>
+    
+    let NOT_IN_DIRECTED_GRAPH = "no such operation in a directed graph"
+
+    weak var parentGraph: AbstractBaseGraph<V, E>?
+    
+    private var vertexMapDirected: VertexMapDirectedTA
+
+    convenience override init()
+    {
+        self.init(vertexMap: VertexMapDirectedTA())
+    }
+
+    init(vertexMap: VertexMapDirectedTA)
+    {
+        self.vertexMapDirected = vertexMap
+    }
+
+    override func addVertex(vertex: V)
+    {
+        // add with a lazy edge container entry
+        vertexMapDirected[vertex] = nil as VertexMapValueTA  // "as" needed to actually store nil
+    }
+
+    override func getVertexSet() -> Set<V>
+    {
+        return Set(vertexMapDirected.keys)
+    }
+
+    /**
+     * @see Graph#getAllEdges(Object, Object)
+     */
+    override func getAllEdges(sourceVertex: V, targetVertex: V) -> Set<E>?
+    {
+        if parentGraph!.containsVertex(sourceVertex)
+            && parentGraph!.containsVertex(targetVertex)
+        {
+            var edges = Set<E>()
+
+            let ec = getEdgeContainer(sourceVertex)
+
+            let outgoing = ec.outgoing
+            for e in outgoing {
+                if parentGraph!.getEdgeTarget(e) == targetVertex {
+                    edges.insert(e)
+                }
+            }
+            
+            
+            return edges
+        }
+
+        return nil
+    }
+
+    /**
+     * @see Graph#getEdge(Object, Object)
+     */
+    override func getEdge(sourceVertex: V, targetVertex: V) -> E?
+    {
+        if parentGraph!.containsVertex(sourceVertex)
+            && parentGraph!.containsVertex(targetVertex)
+        {
+            let ec = getEdgeContainer(sourceVertex)
+
+            let outgoing = ec.outgoing
+            for e in outgoing {
+                if parentGraph!.getEdgeTarget(e) == targetVertex {
+                    return e
+                }
+            }
+            
+        }
+
+        return nil
+    }
+
+    override func addEdgeToTouchingVertices(e: E)
+    {
+        let source = parentGraph!.getEdgeSource(e)
+        let target = parentGraph!.getEdgeTarget(e)
+
+        getEdgeContainer(source).addOutgoingEdge(e)
+        getEdgeContainer(target).addIncomingEdge(e)
+    }
+
+    /**
+     * @see UndirectedGraph#degreeOf(Object)
+     */
+    override func degreeOf(vertex: V) -> Int
+    {
+        fatalError(NOT_IN_DIRECTED_GRAPH)
+    }
+
+    /**
+     * @see Graph#edgesOf(Object)
+     */
+    override func edgesOf(vertex: V) -> Set<E>
+    {
+        var inAndOut = Set<E>(getEdgeContainer(vertex).incoming)
+        inAndOut.unionInPlace(getEdgeContainer(vertex).outgoing)
+
+        // we have two copies for each self-loop - remove one of them.
+        if parentGraph!.allowingLoops {
+            if var loops = getAllEdges(vertex, targetVertex: vertex) {
+                var edgesToRemove = Set<E>()
+                
+                for e in inAndOut {
+                    if loops.contains(e) {
+                        edgesToRemove.insert(e)
+                        loops.remove(e) // so we remove it only once
+                    }
+                }
+                
+                inAndOut.subtractInPlace(edgesToRemove)
+            }
+        }
+
+        // TODO: make unmodifiable
+        return inAndOut
+    }
+
+    /**
+     * @see DirectedGraph#inDegreeOf(Object)
+     */
+    override func inDegreeOf(vertex: V) -> Int
+    {
+        return getEdgeContainer(vertex).incoming.count
+    }
+
+    /**
+     * @see DirectedGraph#incomingEdgesOf(Object)
+     */
+    override func incomingEdgesOf(vertex: V) -> Set<E>
+    {
+        return getEdgeContainer(vertex).getUnmodifiableIncomingEdges();
+    }
+
+    /**
+     * @see DirectedGraph#outDegreeOf(Object)
+     */
+    override func outDegreeOf(vertex: V) -> Int
+    {
+        return getEdgeContainer(vertex).outgoing.count
+    }
+
+    /**
+     * @see DirectedGraph#outgoingEdgesOf(Object)
+     */
+    override func outgoingEdgesOf(vertex: V) -> Set<E>
+    {
+        return getEdgeContainer(vertex).getUnmodifiableOutgoingEdges();
+    }
+
+    override func removeEdgeFromTouchingVertices(e: E)
+    {
+        let source = parentGraph!.getEdgeSource(e)
+        let target = parentGraph!.getEdgeTarget(e)
+
+        getEdgeContainer(source).removeOutgoingEdge(e);
+        getEdgeContainer(target).removeIncomingEdge(e);
+    }
+    
+    /**
+     * A lazy build of edge container for specified vertex.
+     *
+     * @param vertex a vertex in this graph.
+     *
+     * @return EdgeContainer
+     */
+    func getEdgeContainer(vertex: V) -> DirectedEdgeContainer<V, E>
+    {
+        parentGraph!.assertVertexExist(vertex)
+
+        var ec = vertexMapDirected[vertex]
+
+        if ec == nil || ec! == nil {
+            ec = DirectedEdgeContainer<V, E>(edgeSetFactory: parentGraph!.edgeSetFactory!,
+                vertex: vertex)
+            vertexMapDirected[vertex] = ec
+        }
+
+        return ec!!
+    }
+}
+
 private class UndirectedSpecifics<V: Hashable, E: Hashable>: Specifics<V, E> {
     
     typealias VertexMapValueTA = UndirectedEdgeContainer<V, E>?
@@ -92,7 +340,29 @@ private class UndirectedSpecifics<V: Hashable, E: Hashable>: Specifics<V, E> {
         return Set(vertexMapUndirected.keys)
     }
     
-    override func getAllEdges(sourceVertex: V, targetVertex: V) -> Set<E> { abstractClassAssert(); return Set<E>() }
+    override func getAllEdges(sourceVertex: V, targetVertex: V) -> Set<E>? {
+        
+        if parentGraph!.containsVertex(sourceVertex)
+            && parentGraph!.containsVertex(targetVertex)
+        {
+            var edges = Set<E>()
+            let vertexEdges = getEdgeContainer(sourceVertex).vertexEdges
+            
+            for e in vertexEdges {
+                let equal = isEqualsStraightOrInverted(sourceVertex,
+                    targetVertex: targetVertex,
+                    edge: e)
+                
+                if equal {
+                    edges.insert(e)
+                }
+            }
+            
+            return edges
+        }
+        
+        return nil
+    }
     
     override func getEdge(sourceVertex: V, targetVertex: V) -> E? {
         if vertexMapUndirected.keys.contains(sourceVertex)
@@ -122,23 +392,66 @@ private class UndirectedSpecifics<V: Hashable, E: Hashable>: Specifics<V, E> {
         return equalStraight || equalInverted
     }
 
-    // TODO: finish implementation
+    override func addEdgeToTouchingVertices(e: E) {
+       let source = parentGraph!.getEdgeSource(e)
+       let target = parentGraph!.getEdgeTarget(e)
+        
+        getEdgeContainer(source).addEdge(e)
+        
+        if source != target {
+            getEdgeContainer(target).addEdge(e)
+        }
+    }
     
-    override func addEdgeToTouchingVertices(e: E) { abstractClassAssert() }
+    override func degreeOf(vertex: V) -> Int {
+        if parentGraph!.allowingLoops {
+            var degree = 0
+            let edges = getEdgeContainer(vertex).vertexEdges
+            
+            for e in edges {
+                if parentGraph!.getEdgeSource(e) == parentGraph!.getEdgeTarget(e) {
+                    degree += 2
+                } else {
+                    degree += 1
+                }
+            }
+            
+            return degree
+        } else {
+            return getEdgeContainer(vertex).edgeCount()
+        }
+    }
     
-    override func degreeOf(vertex: V) -> Int { abstractClassAssert(); return 0}
+    override func edgesOf(vertex: V) -> Set<E> {
+        return getEdgeContainer(vertex).getUnmodifiableVertexEdges()
+    }
     
-    override func edgesOf(vertex: V) -> Set<E> { abstractClassAssert(); return Set<E>() }
+    override func inDegreeOf(vertex: V) -> Int {
+        fatalError(NOT_IN_UNDIRECTED_GRAPH)
+    }
     
-    override func inDegreeOf(vertex: V) -> Int { abstractClassAssert(); return 0}
+    override func incomingEdgesOf(vertex: V) -> Set<E> {
+        fatalError(NOT_IN_UNDIRECTED_GRAPH)
+    }
     
-    override func incomingEdgesOf(vertex: V) -> Set<E> { abstractClassAssert(); return Set<E>() }
+    override func outDegreeOf(vertex: V) -> Int {
+        fatalError(NOT_IN_UNDIRECTED_GRAPH)
+    }
     
-    override func outDegreeOf(vertex: V) -> Int { abstractClassAssert(); return 0}
+    override func outgoingEdgesOf(vertex: V) -> Set<E> {
+        fatalError(NOT_IN_UNDIRECTED_GRAPH)
+    }
     
-    override func outgoingEdgesOf(vertex: V) -> Set<E> { abstractClassAssert(); return Set<E>() }
-    
-    override func removeEdgeFromTouchingVertices(e: E) { abstractClassAssert() }
+    override func removeEdgeFromTouchingVertices(e: E) {
+        let source = parentGraph!.getEdgeSource(e)
+        let target = parentGraph!.getEdgeTarget(e)
+        
+        getEdgeContainer(source).removeEdge(e)
+        
+        if source != target {
+            getEdgeContainer(target).removeEdge(e)
+        }
+    }
     
     func getEdgeContainer(vertex: V) -> UndirectedEdgeContainer<V, E> {
         parentGraph!.assertVertexExist(vertex)
@@ -406,12 +719,5 @@ public class AbstractBaseGraph<V: Hashable, E: Hashable>: Graph {
     public func getEdgeWeight(e: E) -> Double {
         return 0
     }
-}
-
-class DirectedEdgeContainer<VV: Hashable, EE: Hashable> {
-    var incoming: Set<EE>?
-    var outgoing: Set<EE>?
-    private var unmodifiableIncoming: Set<EE>?
-    private var unmodifiableOutgoing: Set<EE>?
 }
 
