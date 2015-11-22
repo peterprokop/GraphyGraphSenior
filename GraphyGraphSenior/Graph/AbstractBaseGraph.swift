@@ -16,25 +16,25 @@ class Specifics<V: Hashable, E: Hashable> {
     
     func addVertex(vertex: V) { abstractClassAssert() }
     
-    func getVertexSet() -> Set<V> { abstractClassAssert(); return Set<V>() }
+    func getVertexSet() -> Set<V> { abstractClassAssert()}
     
-    func getAllEdges(sourceVertex: V, targetVertex: V) -> Set<E>? { abstractClassAssert(); return Set<E>() }
+    func getAllEdges(sourceVertex: V, targetVertex: V) -> Set<E>? { abstractClassAssert() }
     
-    func getEdge(sourceVertex: V, targetVertex: V) -> E? { abstractClassAssert(); return nil }
+    func getEdge(sourceVertex: V, targetVertex: V) -> E? { abstractClassAssert() }
     
     func addEdgeToTouchingVertices(e: E) { abstractClassAssert() }
     
-    func degreeOf(vertex: V) -> Int { abstractClassAssert(); return 0}
+    func degreeOf(vertex: V) -> Int { abstractClassAssert() }
     
-    func edgesOf(vertex: V) -> Set<E> { abstractClassAssert(); return Set<E>() }
+    func edgesOf(vertex: V) -> Set<E> { abstractClassAssert() }
     
-    func inDegreeOf(vertex: V) -> Int { abstractClassAssert(); return 0}
+    func inDegreeOf(vertex: V) -> Int { abstractClassAssert() }
     
-    func incomingEdgesOf(vertex: V) -> Set<E> { abstractClassAssert(); return Set<E>() }
+    func incomingEdgesOf(vertex: V) -> Set<E> { abstractClassAssert() }
     
-    func outDegreeOf(vertex: V) -> Int { abstractClassAssert(); return 0}
+    func outDegreeOf(vertex: V) -> Int { abstractClassAssert() }
     
-    func outgoingEdgesOf(vertex: V) -> Set<E> { abstractClassAssert(); return Set<E>() }
+    func outgoingEdgesOf(vertex: V) -> Set<E> { abstractClassAssert() }
     
     func removeEdgeFromTouchingVertices(e: E) { abstractClassAssert() }
 }
