@@ -88,15 +88,16 @@ func CycleDetectorTest() {
         //XCTAssertEqual(cyclicSet, detector.findCycles());
         
         for v in cyclicSet {
-            detector.detectCyclesContainingVertex(v)
-            //print("detector.detectCyclesContainingVertex(v) \(detector.detectCyclesContainingVertex(v))")
+            //detector.detectCyclesContainingVertex(v)
+            print("detector.detectCyclesContainingVertex(v) \(detector.detectCyclesContainingVertex(v))")
             //assert(detector.detectCyclesContainingVertex(v))
             //XCTAssertEqual(cyclicSet, detector.findCyclesContainingVertex(v));
         }
         
+        print("acyclicSet\n")
         for v in acyclicSet {
-            detector.detectCyclesContainingVertex(v)
-            //print("detector.detectCyclesContainingVertex(v) \(detector.detectCyclesContainingVertex(v))")
+            //detector.detectCyclesContainingVertex(v)
+            print("detector.detectCyclesContainingVertex(v) \(detector.detectCyclesContainingVertex(v))")
             //assert(false == detector.detectCyclesContainingVertex(v))
             //XCTAssertEqual(emptySet, detector.findCyclesContainingVertex(v));
         }

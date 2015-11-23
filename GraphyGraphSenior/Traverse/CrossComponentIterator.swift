@@ -44,13 +44,28 @@ class FlyweightEdgeEvent<V: Hashable, E: Hashable>: EdgeTraversalEvent<V, E> {
     }
 }
 
+// TODO: since we have crossComponentIteratorEdgesOf we don't need specifics at all
+
 /**
  Provides unified interface for operations that are different in directed
  graphs and in undirected graphs.
  
  Abstract class.
 */
-class CrossComponentIteratorSpecifics<V: Hashable, E: Hashable> {
+//class CrossComponentIteratorSpecifics<V: Hashable, E: Hashable> {
+private class CrossComponentIteratorSpecifics<V: Hashable, E: Hashable, DG: Graph where DG.V == V, DG.E == E>
+{
+    private var graph: DG
+    
+    /**
+     * Creates a new DirectedSpecifics object.
+     *
+     * @param g the graph for which this specifics object to be created.
+     */
+    private init(graph: DG) {
+        self.graph = graph
+    }
+    
     /**
      Returns the edges outgoing from the specified vertex in case of
      directed graph, and the edge touching the specified vertex in case of
@@ -63,15 +78,16 @@ class CrossComponentIteratorSpecifics<V: Hashable, E: Hashable> {
      undirected graph.
     */
     func edgesOf(vertex: V) -> Set<E> {
-        abstractClassAssert()
-        return Set<E>()
+        //abstractClassAssert()
+        return graph.crossComponentIteratorEdgesOf(vertex)
     }
 }
 
+/*
 /**
  * An implementation of {@link Specifics} for a directed graph.
  */
-private class DirectedSpecifics<V: Hashable, E: Hashable, DG: DirectedGraph where DG.V == V, DG.E == E>
+private class DirectedSpecifics<V: Hashable, E: Hashable, DG: Graph where DG.V == V, DG.E == E>
     : CrossComponentIteratorSpecifics<V, E>
 {
     private var graph: DG
@@ -89,7 +105,7 @@ private class DirectedSpecifics<V: Hashable, E: Hashable, DG: DirectedGraph wher
      @see CrossComponentIterator.Specifics#edgesOf(Object)
     */
     override func edgesOf(vertex: V) -> Set<E> {
-        return graph.outgoingEdgesOf(vertex)
+        return graph.crossComponentIteratorEdgesOf(vertex)
     }
 }
 
@@ -116,9 +132,10 @@ private class UndirectedSpecifics<VV: Hashable, EE: Hashable, UG: Graph where UG
     */
     override func edgesOf(vertex: VV) -> Set<EE>
     {
-        return graph.edgesOf(vertex)
+        return graph.crossComponentIteratorEdgesOf(vertex)
     }
 }
+*/
 
 enum CrossComponentIteratorVisitColor
 {
@@ -161,7 +178,7 @@ public class CrossComponentIterator<V: Hashable, E: Hashable, D, G: Graph where 
      */
     private var seen = Dictionary<V, D>()
     private var startVertex: V?
-    private var specifics: CrossComponentIteratorSpecifics<V, E>?
+    private var specifics: CrossComponentIteratorSpecifics<V, E, G>?
 
     var graph: G
 
@@ -199,7 +216,7 @@ public class CrossComponentIterator<V: Hashable, E: Hashable, D, G: Graph where 
         
         super.init()
 
-        specifics = createGraphSpecifics(graph)
+        specifics = CrossComponentIteratorSpecifics<V, E, G>(graph: graph)
         
         setCrossComponentTraversal(startVertex == nil)
         
@@ -374,16 +391,6 @@ public class CrossComponentIterator<V: Hashable, E: Hashable, D, G: Graph where 
         if nListeners != 0 {
             fireVertexFinished(createVertexTraversalEvent(vertex));
         }
-    }
-    
-    func createGraphSpecifics<CG: DirectedGraph where CG.V == V, CG.E == E>(graph: CG)
-        -> CrossComponentIteratorSpecifics<V, E>
-    {
-        return DirectedSpecifics<V, E, CG>(graph: graph)
-    }
-    
-    func createGraphSpecifics(graph: G) -> CrossComponentIteratorSpecifics<V, E> {
-        return UndirectedSpecifics<V, E, G>(graph: graph)
     }
 
     private func addUnseenChildrenOf(vertex: V) {

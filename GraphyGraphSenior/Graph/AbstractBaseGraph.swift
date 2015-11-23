@@ -9,12 +9,12 @@
 import Foundation
 
 
-//TODO: move each class to it's own file
-
-
 class Specifics<V: Hashable, E: Hashable> {
     
     func addVertex(vertex: V) { abstractClassAssert() }
+    
+    // Wasn't present in original, but we need this since we can't mutate set, returned from getVertexSet
+    func removeVertex(vertex: V) { abstractClassAssert() }
     
     func getVertexSet() -> Set<V> { abstractClassAssert()}
     
@@ -135,20 +135,22 @@ private class DirectedSpecifics<V: Hashable, E: Hashable>: Specifics<V, E> {
     
     private var vertexMapDirected: VertexMapDirectedTA
 
-    convenience override init()
-    {
-        self.init(vertexMap: VertexMapDirectedTA())
+    convenience init(parentGraph: AbstractBaseGraph<V, E>) {
+        self.init(vertexMap: VertexMapDirectedTA(), parentGraph: parentGraph)
     }
 
-    init(vertexMap: VertexMapDirectedTA)
-    {
+    init(vertexMap: VertexMapDirectedTA, parentGraph: AbstractBaseGraph<V, E>) {
         self.vertexMapDirected = vertexMap
+        self.parentGraph = parentGraph
     }
 
-    override func addVertex(vertex: V)
-    {
+    override func addVertex(vertex: V) {
         // add with a lazy edge container entry
         vertexMapDirected[vertex] = nil as VertexMapValueTA  // "as" needed to actually store nil
+    }
+    
+    override func removeVertex(vertex: V) {
+        vertexMapDirected.removeValueForKey(vertex)
     }
 
     override func getVertexSet() -> Set<V>
@@ -336,6 +338,10 @@ private class UndirectedSpecifics<V: Hashable, E: Hashable>: Specifics<V, E> {
         vertexMapUndirected[vertex] = nil as VertexMapValueTA  // "as" needed to actually store nil
     }
     
+    override func removeVertex(vertex: V) {
+        vertexMapUndirected.removeValueForKey(vertex)
+    }
+    
     override func getVertexSet() -> Set<V> {
         return Set(vertexMapUndirected.keys)
     }
@@ -513,19 +519,14 @@ public class AbstractBaseGraph<V: Hashable, E: Hashable>: Graph {
     }
     
     private func createSpecifics() -> Specifics<V, E>
-    {        
-        // TODO: add directed specifics
-        return UndirectedSpecifics<V, E>(parentGraph: self)
-        /*
-            if (this instanceof DirectedGraph<?, ?>) {
-            return createDirectedSpecifics();
-            } else if (this instanceof UndirectedGraph<?, ?>) {
-            return createUndirectedSpecifics();
-            } else {
-            throw new IllegalArgumentException(
-            "must be instance of either DirectedGraph or UndirectedGraph");
-            }
-        */
+    {
+        if self is _DirectedGraph {
+            return DirectedSpecifics<V, E>(parentGraph: self)
+        } else if self is _UndirectedGraph {
+            return UndirectedSpecifics<V, E>(parentGraph: self)
+        } else {
+            fatalError("Unspecialized graph instance in createSpecifics")
+        }
     }
     
     public func getAllEdges(sourceVertex: V, targetVertex: V) -> Set<E>? {
@@ -645,6 +646,10 @@ public class AbstractBaseGraph<V: Hashable, E: Hashable>: Graph {
         return specifics!.getVertexSet().contains(v)
     }
     
+    public func degreeOf(vertex: V) -> Int {
+        return specifics!.degreeOf(vertex)
+    }
+    
     public func edgeSet() -> Set<E> {
         if unmodifiableEdgeSet == nil {
             unmodifiableEdgeSet = Set(edgeMap.keys)
@@ -654,9 +659,25 @@ public class AbstractBaseGraph<V: Hashable, E: Hashable>: Graph {
     }
     
     public func edgesOf(v: V) -> Set<E> {
-        return Set<E>()
+        return specifics!.edgesOf(v)
     }
     
+    public func incomingEdgesOf(vertex: V) -> Set<E> {
+        return specifics!.incomingEdgesOf(vertex)
+    }
+    
+    public func outDegreeOf(v: V) -> Int {
+        return specifics!.outDegreeOf(v)
+    }
+    
+    public func outgoingEdgesOf(vertex: V) -> Set<E> {
+        return specifics!.outgoingEdgesOf(vertex)
+    }
+    
+    
+    /*
+        AbstractGraph methods
+    */
     public func removeAllEdges<T: CollectionType where T.Generator.Element == E>(edges: T) -> Bool {
         var modified = false
         
@@ -687,16 +708,41 @@ public class AbstractBaseGraph<V: Hashable, E: Hashable>: Graph {
         return modified
     }
     
-    public func removeEdge(sourceVertex: V, targetVertex: V) {
+    // TODO: finish implementation
+    public func removeEdge(sourceVertex: V, targetVertex: V) -> E? {
+        if let e = getEdge(sourceVertex, targetVertex: targetVertex) {
+            specifics!.removeEdgeFromTouchingVertices(e)
+            edgeMap.removeValueForKey(e)
+            return e
+        }
         
+        return nil
     }
     
     public func removeEdge(e: E) -> Bool {
+        if containsEdge(e) {
+            specifics!.removeEdgeFromTouchingVertices(e)
+            edgeMap.removeValueForKey(e)
+            return true
+        }
+        
         return false
     }
     
     public func removeVertex(v: V) -> Bool {
-        return false
+        if containsVertex(v) {
+            let touchingEdgesList = edgesOf(v)
+            
+            // cannot iterate over list - will cause
+            // ConcurrentModificationException
+            removeAllEdges(touchingEdgesList)
+            
+            specifics!.removeVertex(v) // remove the vertex itself
+            
+            return true;
+        } else {
+            return false;
+        }
     }
     
     public func vertexSet() -> Set<V> {
@@ -717,7 +763,20 @@ public class AbstractBaseGraph<V: Hashable, E: Hashable>: Graph {
     }
     
     public func getEdgeWeight(e: E) -> Double {
+        // TODO: finish implementation
         return 0
     }
+    
+    public func setEdgeWeight(e: E, weight: Double) {
+        // TODO: finish implementation
+        //assert (e instanceof DefaultWeightedEdge) : e.getClass();
+        //((DefaultWeightedEdge) e).weight = weight;
+    }
+    
+    
+    public func crossComponentIteratorEdgesOf(v: V) -> Set<E> {
+        abstractClassAssert()
+    }
+    
 }
 

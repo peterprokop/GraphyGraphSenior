@@ -8,20 +8,22 @@
 
 import Foundation
 
-public class DefaultDirectedGraph<V: Hashable, E: Hashable where E: Initialisable>: AbstractBaseGraph<V, E>, DirectedGraph {
+public class DefaultDirectedGraph<V: Hashable, E: Hashable where E: Initialisable>
+    : AbstractBaseGraph<V, E>, DirectedGraph
+{
     public func inDegreeOf(vertex: V) -> Int {
         return specifics!.inDegreeOf(vertex)
     }
     
-    public func incomingEdgesOf(vertex: V) -> Set<E> {
+    override public func incomingEdgesOf(vertex: V) -> Set<E> {
         return specifics!.incomingEdgesOf(vertex)
     }
     
-    public func outDegreeOf(vertex: V) -> Int {
+    override public func outDegreeOf(vertex: V) -> Int {
         return specifics!.outDegreeOf(vertex)
     }
     
-    public func outgoingEdgesOf(vertex: V) -> Set<E> {
+    override public func outgoingEdgesOf(vertex: V) -> Set<E> {
         return specifics!.outgoingEdgesOf(vertex)
     }
     
@@ -31,5 +33,9 @@ public class DefaultDirectedGraph<V: Hashable, E: Hashable where E: Initialisabl
 
     init(edgeFactory: EdgeFactory<V, E>) {
         super.init(edgeFactory: edgeFactory, allowMultipleEdges: false, allowLoops: true)
+    }
+    
+    override public func crossComponentIteratorEdgesOf(v: V) -> Set<E> {
+        return outgoingEdgesOf(v)
     }
 }

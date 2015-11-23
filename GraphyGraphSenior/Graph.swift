@@ -14,7 +14,6 @@ public protocol Graph {
     
     func getAllEdges(sourceVertex: V, targetVertex: V) -> Set<E>?
     func getEdge(sourceVertex: V, targetVertex: V) -> E?
-    
     func getEdgeFactory() -> EdgeFactory<V, E>?
     func addEdge(sourceVertex: V, targetVertex: V) -> E?
     func addEdge(sourceVertex: V, targetVertex: V, e: E) -> Bool
@@ -27,23 +26,34 @@ public protocol Graph {
     func removeAllEdges<T: CollectionType where T.Generator.Element == E>(edges: T) -> Bool
     func removeAllEdges(sourceVertex: V, targetVertex: V) -> Set<E>?
     func removeAllVertices<T: CollectionType where T.Generator.Element == V>(vertices: T) -> Bool
-    func removeEdge(sourceVertex: V, targetVertex: V)
+    func removeEdge(sourceVertex: V, targetVertex: V) -> E?
     func removeEdge(e: E) -> Bool
     func removeVertex(v: V) -> Bool
     func vertexSet() -> Set<V>
     func getEdgeSource(e: E) -> V
     func getEdgeTarget(e: E) -> V
     func getEdgeWeight(e: E) -> Double
+    
+    // Crutch
+    func crossComponentIteratorEdgesOf(v: V) -> Set<E>
 }
 
-public protocol DirectedGraph: Graph {
+public protocol _DirectedGraph {
+    
+}
+
+public protocol _UndirectedGraph {
+    
+}
+
+public protocol DirectedGraph:_DirectedGraph, Graph {
     func inDegreeOf(vertex: V) -> Int
     func incomingEdgesOf(vertex: V) -> Set<E>
     func outDegreeOf(vertex: V) -> Int
     func outgoingEdgesOf(vertex: V) -> Set<E>
 }
 
-public protocol UndirectedGraph: Graph {
+public protocol UndirectedGraph:_UndirectedGraph, Graph {
     typealias V: Hashable
     typealias E: Hashable
     

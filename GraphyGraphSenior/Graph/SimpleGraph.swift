@@ -8,7 +8,7 @@
 
 import Foundation
 
-public class SimpleGraph<V: Hashable, E: Hashable where E: Initialisable>: AbstractBaseGraph<V, E> {
+public class SimpleGraph<V: Hashable, E: Hashable where E: Initialisable>: AbstractBaseGraph<V, E>, _UndirectedGraph {
     init(edgeFactory: EdgeFactory<V, E>) {
         super.init(edgeFactory: edgeFactory, allowMultipleEdges: false, allowLoops: false)
     }
@@ -18,4 +18,12 @@ public class SimpleGraph<V: Hashable, E: Hashable where E: Initialisable>: Abstr
     }
     
     // TODO: add builder funcs
+    
+    override public func crossComponentIteratorEdgesOf(v: V) -> Set<E> {
+        return edgesOf(v)
+    }
+    
+    override public func degreeOf(vertex: V) -> Int {
+        return super.degreeOf(vertex)
+    }
 }
